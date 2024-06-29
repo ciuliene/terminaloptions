@@ -1,6 +1,6 @@
 [project]
 name = "terminaloptions"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
   { name="Giuliano Errico", email="errgioul2@gmail.com" },
 ]

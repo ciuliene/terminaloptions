@@ -26,20 +26,11 @@ bg_color_code = {
         'reset': '\033[10m'
 }
 
-
 txt_color: Callable[[str], str] = lambda c: text_color_code[c]
 bgd_color: Callable[[str], str] = lambda c: bg_color_code[c]
 reset_code = '\033[0m'
 
-class Menu():
-    def __init__(self, options: list[str]) -> None:
-        self.selected_index = 0
-        self.options = options
-        self._n_lines = None
-        pass
-
-
-    def log_message(self, message: str, text_color: str | None = None, bg_color: str | None = None, end: str | None = None):
+def log_message(message: str, text_color: str | None = None, bg_color: str | None = None, end: str | None = None):
         """Log message with custom colors
 
         Available color:
@@ -71,6 +62,13 @@ class Menu():
             bg_color = 'reset'
         print(f"{bg_color_code[bg_color]}{text_color_code[text_color]}{message}{reset_code}", end='\n' if end is None else end)
 
+class Menu():
+    def __init__(self, options: list[str]) -> None:
+        self.selected_index = 0
+        self.options = options
+        self._n_lines = None
+        pass
+
     def print_menu(self, pad: int = 0):
         longest = 0
         for option in self.options:
@@ -88,7 +86,7 @@ class Menu():
         for idx, option in enumerate(self.options):
             txt_color = None if idx != self.selected_index else 'white'
             bg_color = None if idx != self.selected_index else "blue"
-            self.log_message(f"{prefix}{option.ljust(longest)}",
+            log_message(f"{prefix}{option.ljust(longest)}",
                         text_color=txt_color, bg_color=bg_color)
             self._n_lines += 1
 
